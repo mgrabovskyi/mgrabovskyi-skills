@@ -1,0 +1,8 @@
+{
+  "name": "engineering",
+  "version": "0.1.0",
+  "description": "Individual engineering — code review, architecture, design docs, debugging, refactors",
+  "author": {
+    "name": "Michael Grabovskyi"
+  }
+}
