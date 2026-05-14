@@ -12,6 +12,30 @@ The collection is organized around three roles I work across:
 
 Cross-cutting or role-agnostic skills (e.g. summarizing transcripts, drafting briefs) live at the top-level [`skills/`](skills) directory rather than inside a plugin.
 
+## Skills
+
+### `engineering`
+
+| Skill | What it does |
+|---|---|
+| [`karpathy-coding-guidelines`](plugins/engineering/skills/karpathy-coding-guidelines) | Coding guardrails for feature work, bugfixes, and refactors — favors clarity, minimal diffs, explicit assumptions, and verifiable success criteria over speed or speculative abstraction. |
+
+### `eng-management`
+
+| Skill | What it does |
+|---|---|
+| [`linear-triage-automation`](plugins/eng-management/skills/linear-triage-automation) | Event-driven Linear triage: duplicate detection, priority parsing, owner assignment via Triage Intelligence with domain-based fallback, and moving issues out of the Triage column. Expects a routing table and triage fallback owner from the calling team. |
+
+### `eng-leadership`
+
+*No skills yet.*
+
+### Cross-cutting (top-level `skills/`)
+
+| Skill | What it does |
+|---|---|
+| [`morning-briefing`](skills/morning-briefing) | Walks the user through configuring a recurring daily rollup of Slack/Teams + email activity, then generates a self-contained scheduled-task prompt that posts a four-section summary (asks, mentions, updates, blockers) each morning. |
+
 ## Install
 
 Add this repo as a marketplace in Claude Code, then install the plugins you want:
