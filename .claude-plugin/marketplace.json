@@ -5,19 +5,9 @@
   },
   "plugins": [
     {
-      "name": "eng-leadership",
-      "source": "./plugins/eng-leadership",
-      "description": "Director/VP-level work — strategy, planning, OKRs, exec & board communication, org design"
-    },
-    {
-      "name": "engineering",
-      "source": "./plugins/engineering",
-      "description": "Individual engineering — code review, architecture, design docs, debugging, refactors"
-    },
-    {
-      "name": "eng-management",
-      "source": "./plugins/eng-management",
-      "description": "People & process — 1:1s, performance reviews, hiring, interview prep, retros, postmortems"
+      "name": "mgrabovskyi-skills",
+      "source": "./",
+      "description": "Claude Code skills for engineering leaders — daily code work, people and process operations, and cross-cutting workflow tools."
     }
   ]
 }
