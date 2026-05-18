@@ -93,6 +93,23 @@ The skill posts the comment **before** reassigning — the new owner never sees 
 > [!TIP]
 > Run it once before PTO and once again the day before you return. The pre-return run catches anything that moved while you were out, with the same context discipline applied in reverse.
 
+### #5 — Multi-session strategy work loses state, and you re-derive it every time
+
+> "The faintest ink is more powerful than the strongest memory."
+>
+> — Chinese proverb
+
+**The Problem.** The biggest leader work — strategy, roadmap, hiring loops, postmortems, OKR shaping — doesn't fit in one chat. You hit the context limit mid-thought, or you stop for the day. When you come back, the first twenty minutes go to re-explaining where things landed, what was decided, and what's still open. The agent re-asks questions you already answered. Decisions that were *closed* get quietly re-litigated. The cost compounds across sessions.
+
+**The Fix** is to compact each session into a *structured* artifact — not a free-form chat summary — that the next session can load as state:
+
+- [`session-handoff`](./skills/productivity/session-handoff/SKILL.md) — produces a leader-shaped brief (decisions made, decisions still open, asks, stakes, what the next session should do) and writes it to a destination you pick: temp file, project state file, Notion page, or Slack canvas. The next session reads it, picks up exactly where you left off, and never re-asks resolved questions.
+
+The bar to clear: a fresh agent reading the handoff should be able to **act**, not summarize.
+
+> [!TIP]
+> For work that spans weeks — a hiring loop, an OKR draft, a vendor selection — make the destination a Notion page in append mode. Each session adds a dated section; the page becomes the canonical state, and the chat is just the working surface.
+
 ### Summary
 
 The bet behind this collection: the highest-leverage thing an engineering leader can do with an agent is **not** "have it write more code." It's **shape your existing work so less of it lands on your calendar**. These skills are the part of that bet I've shipped publicly.
