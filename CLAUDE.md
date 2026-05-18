@@ -1,27 +1,26 @@
 # CLAUDE.md
 
-This repo is a **Claude Code plugin marketplace** containing skills, agents, and commands for engineering leadership, individual engineering, and engineering management work.
+This repo is a single [Claude Code plugin](https://docs.claude.com/en/docs/claude-code/plugins) containing skills for engineering leaders. Skills are organized into bucket folders by *kind of work*, not by job title.
 
 ## Repo layout
 
-- `.claude-plugin/marketplace.json` — marketplace manifest. Update whenever a plugin is added, removed, or renamed.
-- `plugins/<plugin>/` — one directory per plugin. Each has a `.claude-plugin/plugin.json` and a `skills/` subdir.
-- `skills/` (top-level) — cross-cutting, role-agnostic skills that don't belong to any single plugin.
-- `docs/` — notes, conventions, examples.
-
-The three plugins map to three personas:
-
-| Plugin | Persona | Examples of what belongs here |
-|---|---|---|
-| `eng-leadership` | Director/VP work | Strategy memos, OKRs, roadmap reviews, exec/board comms, org design |
-| `engineering` | Individual engineering | Code review, architecture review, design docs, debugging, refactors |
-| `eng-management` | People & process | 1:1 prep, performance reviews, hiring/JDs, interview prep, retros, postmortems |
+- `.claude-plugin/plugin.json` — plugin manifest (name, version, description, author).
+- `.claude-plugin/marketplace.json` — single-entry marketplace pointing at this plugin, so the standard `/plugin marketplace add` / `/plugin install` flow works.
+- `skills/` — all skills, organized into buckets:
+  - `engineering/` — daily code work (writing, reviewing, debugging, refactoring).
+  - `management/` — people, process, operational queues (triage, hiring, reviews, retros).
+  - `productivity/` — cross-cutting daily workflow tools (rollups, scheduled tasks, communication automation).
+  - `in-progress/` — drafts not yet ready to ship. Excluded from the top-level `README.md`.
+  - `deprecated/` — retired skills, kept so old links and intent survive. Excluded from the top-level `README.md`.
+- `docs/` — notes, conventions, longer-form references.
 
 ## Where a new skill goes — decision rule
 
-1. **Does it fit clearly in one persona?** → `plugins/<persona>/skills/<skill-name>/`
-2. **Useful across personas, or doesn't map to one?** → top-level `skills/<skill-name>/`
-3. **Unsure?** Ask. Don't guess — putting it in the wrong plugin makes installation noisier than it needs to be.
+1. **Does it write or review code?** → `skills/engineering/`
+2. **Does it run a people/process/queue workflow?** → `skills/management/`
+3. **Is it cross-cutting daily workflow that doesn't fit either?** → `skills/productivity/`
+4. **Not ready to ship?** → `skills/in-progress/`
+5. **Unsure?** Pick the closest bucket and move it later. Buckets are organizational, not load-bearing — Claude triggers skills by their `description`, not by their path.
 
 ## Skill format
 
@@ -30,41 +29,51 @@ A skill is a directory containing `SKILL.md`:
 ```markdown
 ---
 name: skill-name
-description: One sentence describing when Claude should use this skill. Be specific about triggers.
+description: One sentence describing when Claude should use this skill. Name concrete triggers — situations, phrases the user might say, or states the conversation might be in. Not topics.
 ---
 
 # Body
-Instructions, examples, conventions. Keep it focused — long skills are skipped.
+Instructions, examples, conventions. Keep it focused — long skills get skipped or skimmed.
 ```
 
-**The `description` is load-bearing.** Claude uses it to decide whether to invoke the skill. Write it from the perspective of "use this when the user…" — name concrete trigger phrases or situations, not just topics.
+**The `description` is load-bearing.** Claude reads it to decide whether to invoke the skill. Write it from the perspective of "use this when…" — name concrete trigger situations, not just the topic.
 
-Bad: `description: Helps with performance reviews.`
-Good: `description: Use when the user is drafting a performance review, calibrating ratings, or writing manager feedback for a direct report.`
+- Bad: `Helps with performance reviews.`
+- Good: `Use when the user is drafting a performance review, calibrating ratings, or writing manager feedback for a direct report.`
 
-## Plugin format
+## Progressive disclosure
 
-Each plugin needs `plugins/<name>/.claude-plugin/plugin.json` with at minimum:
+Skills that need supporting material (templates, longer references, scripts) put those files **alongside `SKILL.md`** in the same directory. The main `SKILL.md` stays short and references the supporting files by relative path. Claude loads them on demand.
 
-```json
-{
-  "name": "<name>",
-  "version": "0.1.0",
-  "description": "...",
-  "author": { "name": "Michael Grabovskyi" }
-}
+Example:
+
+```
+skills/engineering/tdd/
+├── SKILL.md           # short entry point, references the rest
+├── mocking.md
+├── refactoring.md
+└── tests.md
 ```
 
-Plugins can also contain `agents/`, `commands/`, `hooks/`, `mcp-servers/` per the [Claude Code plugin spec](https://docs.claude.com/en/docs/claude-code/plugins). **Do not create these directories preemptively** — add them when there's actual content.
+Prefer this over writing one giant `SKILL.md`. Long single-file skills get skimmed or truncated.
+
+## Listing rules
+
+- Every skill in `engineering/`, `management/`, or `productivity/` **must** have:
+  1. A one-line entry in its bucket's `README.md`.
+  2. A one-line entry in the top-level `README.md` reference section.
+- Skills in `in-progress/` and `deprecated/` **must not** appear in the top-level `README.md`.
+- Each bucket's `README.md` lists every skill in the bucket with a one-line description, with the skill name linked to its `SKILL.md`.
 
 ## Versioning
 
-- Bump the plugin's `version` on every shipped change. Use semver: patch for tweaks, minor for new skills, major for removing/renaming skills.
-- The marketplace itself is unversioned — it's a directory listing.
+- Bump the plugin's `version` in `.claude-plugin/plugin.json` on every shipped change.
+- Semver: patch for tweaks, minor for new skills, major for renaming or removing skills.
 
 ## Conventions
 
 - One skill per directory; the directory name matches the `name` in frontmatter.
-- Skills that need supporting files (templates, examples) put them alongside `SKILL.md` in the same directory.
 - Prefer editing an existing skill over creating a near-duplicate.
-- Don't add boilerplate skills (`hello-world` etc.) — every skill should solve a real recurring task.
+- Don't add boilerplate skills (`hello-world`, etc.) — every skill should solve a real recurring task.
+- Don't preemptively create `agents/`, `commands/`, `hooks/`, or `mcp-servers/` directories. Add them when there's actual content.
+- When deprecating a skill, move it to `skills/deprecated/<skill-name>/` and add a one-line note at the top of its `SKILL.md` explaining why it was deprecated and what (if anything) supersedes it. Remove it from the top-level and bucket `README.md`.
