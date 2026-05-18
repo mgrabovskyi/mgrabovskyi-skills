@@ -111,6 +111,7 @@ The bet behind this collection: the highest-leverage thing an engineering leader
 ### Productivity — cross-cutting daily workflow
 
 - **[morning-briefing](./skills/productivity/morning-briefing/SKILL.md)** — Recurring daily rollup of Slack/Teams + email activity, delivered as a four-section summary (asks, mentions, updates, blockers) at the time and destination you pick.
+- **[session-handoff](./skills/productivity/session-handoff/SKILL.md)** — Compact the current conversation into a structured leader-shaped handoff (decisions made, decisions open, asks, stakes, next-session prompt) and write it to a temp file, project state file, Notion page, or Slack canvas. Distinct from [`linear-handoff`](./skills/management/linear-handoff/SKILL.md): this is chat→chat, not engineer→engineer.
 
 ## Layout
 
