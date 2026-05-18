@@ -76,6 +76,23 @@ The skill *builds and installs* the task. The task does the daily work. You spen
 > [!TIP]
 > Pair the Slack self-DM delivery target with mobile push and your morning briefing reaches you before you open a laptop. Best leverage I've found for a five-second investment.
 
+### #4 — Handoffs between engineers lose context, and the new owner pays the tax
+
+> "Adding manpower to a late software project makes it later."
+>
+> — Frederick P. Brooks Jr., *The Mythical Man-Month*
+
+**The Problem.** An engineer goes on PTO, switches teams, or leaves. Their tickets get reassigned — usually with a one-line comment like "handing this to Bob" — and the new owner spends a day reconstructing where the work actually is. What branch? Which PR? What's already been decided in review? What did the last comment thread agree on? Context lives in three places (Linear, git, GitHub), and the reassignment carries none of it.
+
+**The Fix** is to make context the **precondition** for reassignment, not the afterthought:
+
+- [`linear-handoff`](./skills/management/linear-handoff/SKILL.md) — given two engineers, gathers Linear state plus git branch and PR status for every open ticket, composes a structured handoff comment per ticket (what's done, what's left, key decisions, suggested next steps, quick-start command), shows the drafts back to you for confirmation, and only then posts and reassigns. Requires a Linear MCP, git, and `gh`.
+
+The skill posts the comment **before** reassigning — the new owner never sees the ticket in their queue without the context already on it.
+
+> [!TIP]
+> Run it once before PTO and once again the day before you return. The pre-return run catches anything that moved while you were out, with the same context discipline applied in reverse.
+
 ### Summary
 
 The bet behind this collection: the highest-leverage thing an engineering leader can do with an agent is **not** "have it write more code." It's **shape your existing work so less of it lands on your calendar**. These skills are the part of that bet I've shipped publicly.
@@ -89,6 +106,7 @@ The bet behind this collection: the highest-leverage thing an engineering leader
 ### Management — people, process, operational queues
 
 - **[linear-triage-automation](./skills/management/linear-triage-automation/SKILL.md)** — Event-driven Linear triage: duplicate detection, free-text priority parsing, owner assignment via Triage Intelligence with a routing-table fallback, and moving issues out of the Triage column.
+- **[linear-handoff](./skills/management/linear-handoff/SKILL.md)** — Hand off an engineer's open Linear tickets to another engineer with full context (Linear state + git branch + PR status), as a confirmed batch. PTO coverage, role changes, team transfers.
 
 ### Productivity — cross-cutting daily workflow
 
